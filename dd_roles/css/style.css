@@ -1,0 +1,64 @@
+.defaultRole{
+    background-color: #ececec;
+}
+.defaultRole.alternate{
+    background-color: #ddd;
+}
+
+.defaultCaps li,
+.otherCaps li{
+    width: 25%;
+    float: left;
+}
+
+.capabilitiesBlock input[type="checkbox"]{
+    margin-right: 10px;
+}
+.capabilitiesBlock input[type="checkbox"].disabled{
+    cursor: default;
+}
+
+.defaultCaps,
+.otherCaps {
+    background: #fcfcfc;
+    padding: 12px;
+    margin: 12px auto;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+.defaultCaps h4,
+.otherCaps h4{
+    margin-top: 0;
+}
+
+.capLabel.disabled{
+    cursor: default;
+}
+.migrate_to{
+    text-align: center;
+}
+
+.capLabel{
+    position: relative;
+}
+.capLabel.loading input{
+    visibility: hidden;
+}
+.capLabel.loading .spinner{
+    display: block;
+    position: absolute;
+    top: -1px;
+    margin: 0px;
+    left: -2px;
+}
+
+#poststuff #submitdiv .inside,
+#poststuff #cleanUpdiv .inside,
+#poststuff #migratediv .inside{
+    padding: 0;
+    margin: 0;
+}
+
+.dd-sidebar .postbox .hndle {
+    cursor: default;
+}
