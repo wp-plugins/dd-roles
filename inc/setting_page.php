@@ -48,7 +48,7 @@ function rolesSettingsPage(){
                             <div id="minor-publishing">
                                 <div class="misc-pub-section">
                                     <input type="text" class="widefat dd-new-role" name="dd-new-role" placeholder="New role"/>
-                                    <textarea class="widefat dd_roles hidden" name="dd_roles"><?php echo get_option('dd_roles'); ?></textarea>
+                                    <input type="hidden" class="dd_roles" name="dd_roles" value="<?php print_r( get_option('dd_roles')); ?>">
                                 </div>
 
                                 <div class="clear"></div>
@@ -281,14 +281,18 @@ function rolesSettingsPage(){
 
                                 }
                                 else{
+                                    $CustomCapTrue = customCapBoolean();
+
+                                    if($CustomCapTrue){
+                                    }
 
                                     if($role_id == 'administrator'){
                                         $text = 'View';
                                         $class = 'viewRole';
                                     }
                                     else{
-                                        $text = 'Edit';
-                                        $class = 'editRole';
+                                        $text = $CustomCapTrue ? 'Edit' : 'View';
+                                        $class = $CustomCapTrue ? 'editRole' : 'viewRole';
                                     }
                                     echo '<div class="">
                                     <span class="edit"><a class="'.$class.'" href="#" title="Edit this item">'.$text.'</a> | </span><span class="">Default Wordpress Role</span>

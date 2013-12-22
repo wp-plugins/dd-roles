@@ -7,70 +7,69 @@
  */
 
 // Same handler function...
-add_action( 'wp_ajax_verifyRole', 'verifyRole_callback' );
-add_action( 'wp_ajax_makeRole', 'makeRole_callback' );
+add_action( 'wp_ajax_verify_and_add', 'verify_and_add_callback' );
 add_action( 'wp_ajax_deleteRole', 'deleteRole_callback' );
 add_action( 'wp_ajax_migrateUsers', 'migrateUsers_callback' );
 add_action( 'wp_ajax_cleanUp', 'cleanUp_callback' );
 add_action( 'wp_ajax_changeCapState', 'changeCapState_callback' );
 
-function verifyRole_callback() {
 
+
+
+
+function verify_and_add_callback() {
     global $wp_roles;
     $unique = true;
-    $new_role = $_POST['newRoleID'];
-
+    $new_displayName = $_POST['new_role_display_name'];
+    $new_role_id = str_replace(' ', '_', $new_displayName); //replace whitespace
+    $new_role_id = strtolower($new_role_id); //make all lowercase like: administrator, visitor_hello which can be verified with the role's name.
+    $lastcharacter = $new_displayName[strlen($new_displayName)-1];
+    $firstcharacter = substr($new_displayName, 0, 1);
+    $rolesArray = get_option('dd_roles');
     $roles = isset($wp_roles) ? $wp_roles->get_names() : '';
 
     foreach ($roles as $role_id => $role_name) {
-
-        if($new_role == $role_name){
+        if($new_role_id == $role_id){
             $unique = false;
         }
-
-
     }
 
-    $new_role = str_replace(' ', '', $new_role); //replace whitespace
+    if($firstcharacter == " " || $lastcharacter == " "){
+            $unique = false;
+    }
 
-    if (!ctype_alnum($new_role)) {
-        //check if NOT alphanumeric
-        //So don't pass
+    $checkName = str_replace(' ', '', $new_displayName); //replace whitespace
+
+    if (!ctype_alnum($checkName)) {
+        //check if NOT alphanumeric....So don't pass
         $unique = false;
     }
 
+    if ($unique){
+
+        $rolesArray ? array_push($rolesArray, $new_role_id) : $rolesArray = array($new_role_id);
+
+        if ( ! isset( $GLOBALS[ 'wp_roles' ] ) ){
+            $GLOBALS[ 'wp_roles' ] = new WP_Roles();
+        }
+        update_option( 'dd_roles', $rolesArray );
+        $GLOBALS[ 'wp_roles' ]->add_role( $new_role_id, __( $new_displayName, 'cftp_band' ) );
+    }
 
     echo $unique;
-    die();
-}
-
-function makeRole_callback() {
-
-    $displayName = $_POST['new_role'];
-    $roleName = str_replace(' ', '_', $displayName); //replace whitespace
-    $roleName = strtolower($roleName); //make all lowercase like: administrator, visitor_hello which can be cerified with the role's name.
-
-    echo $roleName;
-    if ( ! isset( $GLOBALS[ 'wp_roles' ] ) )
-        $GLOBALS[ 'wp_roles' ] = new WP_Roles();
-
-// do not generate any output here
-    $dish_caps = array(
-
-//        'delete_others_ws_dishes' => false,
-//        'delete_private_ws_dishes' => false,
-//        'delete_published_ws_dishes' => false
-    );
-    $GLOBALS[ 'wp_roles' ]->add_role( $roleName, __( $displayName, 'cftp_band' ), $dish_caps );
 
     die();
 }
+
 
 function deleteRole_callback() {
 
     $role_id = $_POST['role_id'];
+    $rolesArray = get_option('dd_roles');
+    $rolesArray = array_diff($rolesArray, array($role_id));
 
-    userMigrate($role_id);
+    userMigrate($role_id,'');
+    update_option( 'dd_roles', $rolesArray );
 
     $wp_roles = new WP_Roles();
     $wp_roles->remove_role($role_id);
@@ -82,12 +81,9 @@ function changeCapState_callback() {
 
 
     $state = $_POST['state'];
-
     $state = filter_var($state, FILTER_VALIDATE_BOOLEAN);
-
     $capname = $_POST['capname'];
     $role_id = $_POST['role_id'];
-
     $role = get_role( $role_id);
 
     if($state){
@@ -100,16 +96,12 @@ function changeCapState_callback() {
         echo 'dit is de state:'.$state;
         echo 'delete';
     }
-
-
-
     die();
 }
 
 function migrateUsers_callback() {
     $fromRole = $_POST['fromRole'];
     $toRole = $_POST['toRole'];
-
     userMigrate($fromRole,$toRole);
 
     die();
@@ -123,7 +115,6 @@ function userMigrate($roleName,$toRole){
     }
 
     $usersRole = 'role='.$roleName.'';
-
     $users = get_users($usersRole);
     foreach ($users as $user) {
 
@@ -137,7 +128,6 @@ function userMigrate($roleName,$toRole){
 }
 
 function cleanUp_callback(){
-
 
     $delcaps = $_POST['delcaps'];
 
@@ -153,19 +143,3 @@ function cleanUp_callback(){
 
     die();
 }
-
-function activate_cap() {
-    // gets the author role
-    $role = get_role( 'author' );
-
-    // This only works, because it accesses the class instance.
-    // would allow the author to edit others' posts for current theme only
-    $role->add_cap( 'edit_others_posts' );
-}
-
-function deactivate_cap() {
-
-    $role = get_role( 'author' );
-    $role->remove_cap( $cap );
-}
-

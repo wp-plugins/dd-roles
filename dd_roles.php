@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: DD_Roles
-Version: 1.0
+Version: 1.1
 Plugin URI: http://dijkstradesign.com
 Description: A plug-in to add and edit the roles and capabilities
 Author: Wouter Dijkstra
@@ -49,6 +49,9 @@ class dd_roles {
         //TODO reset roles before deactivate
 //        require_once('functions/user_to_subscriber.php');
 //        require_once('functions/remove_role.php');
+
+        delete_option( 'dd_roles' ); //need for update
+
     }
 }
 
