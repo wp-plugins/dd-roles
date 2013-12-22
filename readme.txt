@@ -4,7 +4,7 @@ Donate link:
 Tags: Roles, Capabilities, Migrate, Users, Clean up, Custom
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,11 +31,26 @@ Do you have ideas, questions or issues with DD-roles? Please leave a message in 
 
 == Changelog ==
 
+= 1.1 =
+* Total saving with Ajax
+* usability improvement
+* save roles made with dd roles in array
+* Read the Upgrade notice to keep earlier made roles
+
 = 1.0 =
 * Add plugin live
 
 
 == Upgrade notice ==
+
+= 1.1 =
+Because of an improvement you need to do the following steps:
+* Upgrade plugin
+* Deactivate plugin
+* Activate plugin
+
+
+
 
 The current version of DD Roles requires WordPress 3.3 or higher. If you use older version of WordPress, you need to upgrade WordPress first.
 

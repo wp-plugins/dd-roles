@@ -21,32 +21,25 @@ jQuery(function($) {
     })
 
 
-
     $('.js-newRole').on('click', function(){
 
         var newRoleName = $('.dd-new-role').val();
-
-        var newRoleID = newRoleName.split(' ').join('_');
-        newRoleID = newRoleID.toLowerCase();
-
         if(newRoleName == ''){
             showError();
             return;
         }
         else{
-            //Do AJAX VERIFICATION
+            //Do AJAX VERIFICATION AND ADD
             var data = {
-                action: 'verifyRole',
-                new_roleName: newRoleName,
-                newRoleID: newRoleID
+                action: 'verify_and_add',
+                new_role_display_name: newRoleName
             };
             jQuery.post(ajaxurl, data, function(unique) {
 
                 if (unique) {
+
+                    location.reload();
                     console.log (unique);
-                    add_to_ddRoles(newRoleID); //update the hiddenfield
-                    make_new_role(newRoleName); //Make the new role
-                    save_ddRoles(); //ddRoles new list
                 }
                 else {
                     showError();
@@ -58,59 +51,12 @@ jQuery(function($) {
     function showError(){
 
         $('.duplicated').removeClass('hidden');
-        console.log('bestaat al of is leeg stop error')
+//        console.log('bestaat al of is leeg stop error');
         //show error messages empty or duplicated
     }
 
-    function add_to_ddRoles(newRole){
-
-        //Add new_role to the list of dd_roles (js) BUGS
-        //needs to trigger savebtn so the role can be add to list and made..
-
-        var dd_roleList = $('.dd_roles').val();
-        newRole = newRole.split(' ').join('_');
-        newRole = newRole.toLowerCase();
-
-        if (dd_roleList == ''){
-            $('.dd_roles').val(newRole);
-        }
-        else{
-            var excistingList = dd_roleList.split(",");
-
-            //Extra: if there are still double:
-            newList = $.grep(excistingList, function(value) {
-                return newRole != value;
-            });
-
-            newList.push(newRole);//now 20 values
-
-            $('.dd_roles').val(newList);
-        }
 
 
-
-
-
-        //do ajax to add_role with values
-
-
-
-    }
-    function make_new_role(newRole){
-
-        //ajaxcall to make new role;
-
-        var data = {
-            action: 'makeRole',
-            new_role: newRole
-        };
-        jQuery.post(ajaxurl, data, function(roleSaved) {
-
-            console.log(roleSaved)
-        });
-
-
-    }
     function save_ddRoles(){
         $('.js-newRole-submit').trigger('click');
     }
@@ -169,28 +115,13 @@ jQuery(function($) {
         };
         jQuery.post(ajaxurl, data, function(capDeleted) {
 
-            console.log(capDeleted)
             thisCapLabel.removeClass('loading');
-
-
-
-
-
-
-
-            console.log('count:'+count+'total'+countTotal+'this is percent: '+percent);
-
             percent = Math.round(percent)+'%';
-
             thisCapLabel.parents('.roleRow').find('.progress-bar').css("width", percent);
             thisCapLabel.parents('.roleRow').find('.progressCount').val(count);
-
             thisCapLabel.parents('.roleRow').find('.sr-only').text(percent+' Capabilities');
 
         });
-
-
-
     });
 
 
@@ -206,30 +137,15 @@ jQuery(function($) {
     $('.viewRole').on('click', function(e){
         e.preventDefault();
         $(this).parents('.roleRow').find('.capabilitiesBlock').toggleClass('hidden');
-        var thisEdit = $(this).parents('.roleRow').find('.edit').children('.editRole');
+        var thisEdit = $(this).parents('.roleRow').find('.edit').children('.viewRole');
 
         thisEdit.text( (thisEdit.text() == 'View' ? 'Close' : 'View') );
     })
 
 
-    $('.deleteRole').on('click', function(){
+    $('.deleteRole').on('click', function(e){
+        e.preventDefault();
         var role_id = $(this).next('.role_id').val();
-
-
-        var dd_roleList = $('.dd_roles').val();
-
-        if (dd_roleList == ''){
-            dd_roleList = [];
-        }
-
-        var excistingList = dd_roleList.split(",");
-
-        //Extra: if there are still double:
-        newList = $.grep(excistingList, function(value) {
-            return role_id != value;
-        });
-
-
         var data = {
             action: 'deleteRole',
             role_id: role_id
@@ -237,13 +153,8 @@ jQuery(function($) {
         jQuery.post(ajaxurl, data, function(roleDeleted) {
 
             console.log(roleDeleted);
-            save_ddRoles();
+            location.reload();
         });
-
-        $('.dd_roles').val(newList);
-
-
-
 
     });
 
