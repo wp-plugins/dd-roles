@@ -4,7 +4,7 @@ Donate link:
 Tags: Roles, Capabilities, Migrate, Users, Clean up, Custom
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ DD-Roles is an extra settings-page to manage your roles but keeps the default ro
 
 == Installation ==
 
-1. Upload the `dd_roles` directory to the `/wp-content/plugins/` directory
+1. Upload the `dd-roles` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Activate and manage your roles through settings > DD Roles.
 
@@ -30,6 +30,9 @@ Do you have ideas, questions or issues with DD-roles? Please leave a message in 
 2. screenshot-2.png
 
 == Changelog ==
+
+= 1.2 =
+* Bugfix: type-o assets path
 
 = 1.1 =
 * Total saving with Ajax

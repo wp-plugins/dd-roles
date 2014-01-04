@@ -511,7 +511,6 @@ return $countCap;
 
 function get_caps_names($role_id){
 
-
     $role_id = get_role($role_id);
     $rol_capabilities = array_keys( $role_id->capabilities );
 
@@ -562,5 +561,4 @@ function onlyAdminRoles(){
         }
     }
     return $onlyAdmin;
-
 }

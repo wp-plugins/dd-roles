@@ -3,7 +3,6 @@
  */
 jQuery(function($) {
 
-
     $('.dd-new-role').keydown(function(event){
         if(event.keyCode == 13) {
             event.preventDefault();
@@ -14,12 +13,10 @@ jQuery(function($) {
 
     $('.dd-new-role').focus(function(){
 
-        $('.settings-error').fadeOut('slow', function(){
+        $('.settings-error').fadeOut('fast', function(){
             $(this).addClass('hidden').attr('style', '');
         });
-
     })
-
 
     $('.js-newRole').on('click', function(){
 
@@ -49,16 +46,9 @@ jQuery(function($) {
     })
 
     function showError(){
-
         $('.duplicated').removeClass('hidden');
 //        console.log('bestaat al of is leeg stop error');
-        //show error messages empty or duplicated
-    }
-
-
-
-    function save_ddRoles(){
-        $('.js-newRole-submit').trigger('click');
+//        show error messages empty or duplicated
     }
 
     $('.js-migrate').on('click', function(){
@@ -79,13 +69,8 @@ jQuery(function($) {
             console.log(migrated);
             location.reload();
         });
-
-
-
-
-
-
     });
+
     $('.capLabel.active').change(function() {
 
 //        console.log($(this).children('input').is(':checked'));
@@ -94,10 +79,7 @@ jQuery(function($) {
         var capname = $(this).children('input').val();
         var role_id = $(this).parents('.roleRow').find('.role_id').val();
 
-
-
         $(this).addClass('loading');
-
 
         var thisCapLabel = $(this);
 
@@ -120,11 +102,8 @@ jQuery(function($) {
             thisCapLabel.parents('.roleRow').find('.progress-bar').css("width", percent);
             thisCapLabel.parents('.roleRow').find('.progressCount').val(count);
             thisCapLabel.parents('.roleRow').find('.sr-only').text(percent+' Capabilities');
-
         });
     });
-
-
 
     $('.editRole').on('click', function(e){
         e.preventDefault();
@@ -142,7 +121,6 @@ jQuery(function($) {
         thisEdit.text( (thisEdit.text() == 'View' ? 'Close' : 'View') );
     })
 
-
     $('.deleteRole').on('click', function(e){
         e.preventDefault();
         var role_id = $(this).next('.role_id').val();
@@ -151,7 +129,6 @@ jQuery(function($) {
             role_id: role_id
         };
         jQuery.post(ajaxurl, data, function(roleDeleted) {
-
             console.log(roleDeleted);
             location.reload();
         });
@@ -169,18 +146,13 @@ jQuery(function($) {
             delcaps: delcaps
         };
         jQuery.post(ajaxurl, data, function(capDeleted) {
-
-            console.log(capDeleted)
-
+            console.log(capDeleted);
             setInterval(location.reload(),5000);
         });
 
     })
 
-
     $('.dd-sidebar').on('click','.handlediv', function(){
-        console.log('hallo');
-
         $(this).parent().toggleClass('closed');
     });
 
