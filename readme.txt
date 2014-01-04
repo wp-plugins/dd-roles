@@ -4,7 +4,7 @@ Donate link:
 Tags: Roles, Capabilities, Migrate, Users, Clean up, Custom
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,9 @@ Do you have ideas, questions or issues with DD-roles? Please leave a message in 
 2. screenshot-2.png
 
 == Changelog ==
+
+= 1.2.1 =
+* Load assets path in a proper way.
 
 = 1.2 =
 * Bugfix: type-o assets path
