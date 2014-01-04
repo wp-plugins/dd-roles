@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: DD_Roles
-Version: 1.1
+Version: 1.2
 Plugin URI: http://dijkstradesign.com
 Description: A plug-in to add and edit the roles and capabilities
 Author: Wouter Dijkstra
@@ -47,10 +47,6 @@ class dd_roles {
     static function deactivate_plugin()
     {
         //TODO reset roles before deactivate
-//        require_once('functions/user_to_subscriber.php');
-//        require_once('functions/remove_role.php');
-
-        delete_option( 'dd_roles' ); //need for update
 
     }
 }
@@ -58,8 +54,8 @@ class dd_roles {
 function dd_Roles_addToAdminHead()
 {
     $plugin_url_path = WP_PLUGIN_URL;
-    echo '<link rel="stylesheet" href="'.$plugin_url_path.'/dd_roles/css/progressBar.css">';
-    echo '<link rel="stylesheet" href="'.$plugin_url_path.'/dd_roles/css/style.css">';
+    echo '<link rel="stylesheet" href="'.$plugin_url_path.'/dd-roles/css/progressBar.css">';
+    echo '<link rel="stylesheet" href="'.$plugin_url_path.'/dd-roles/css/style.css">';
 }
 add_action( 'admin_head', 'dd_Roles_addToAdminHead' );
 
@@ -71,6 +67,6 @@ function dd_Roles_addToAdminFooter()
     wp_enqueue_script('jquery-ui-draggable');
     wp_enqueue_script('jquery-ui-droppable');
     wp_enqueue_script('jquery-ui-sortable');
-    wp_enqueue_script('lastViewed', $plugin_url_path . '/dd_roles/js/default.js', array(), 'jquery');
+    wp_enqueue_script('dd-roles', $plugin_url_path . '/dd-roles/js/default.js', array(), 'jquery');
 }
 add_action( 'admin_footer', 'dd_Roles_addToAdminFooter' );
