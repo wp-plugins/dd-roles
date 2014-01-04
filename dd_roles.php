@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: DD_Roles
-Version: 1.2
+Version: 1.2.1
 Plugin URI: http://dijkstradesign.com
 Description: A plug-in to add and edit the roles and capabilities
 Author: Wouter Dijkstra
@@ -28,14 +28,8 @@ Author URI: http://dijkstradesign.com
 require_once('inc/setting_page.php');
 include_once('functions/ajax_callbacks.php');
 
-
-
-
-
 register_activation_hook( __FILE__, array('dd_roles', 'activate_plugin') );
 register_deactivation_hook( __FILE__, array('dd_roles', 'deactivate_plugin') );
-
-
 
 class dd_roles {
 
@@ -51,22 +45,24 @@ class dd_roles {
     }
 }
 
-function dd_Roles_addToAdminHead()
+/**
+ *   Enqueue plugin style-file for backend
+ */
+function dd_add_style_and_js_dd_roles()
 {
-    $plugin_url_path = WP_PLUGIN_URL;
-    echo '<link rel="stylesheet" href="'.$plugin_url_path.'/dd-roles/css/progressBar.css">';
-    echo '<link rel="stylesheet" href="'.$plugin_url_path.'/dd-roles/css/style.css">';
-}
-add_action( 'admin_head', 'dd_Roles_addToAdminHead' );
+    wp_register_style( 'dd_progressbar', plugins_url('/css/progressBar.css', __FILE__) );
+    wp_register_style( 'dd_roles_styles', plugins_url('/css/style.css', __FILE__) );
 
-function dd_Roles_addToAdminFooter()
-{
-    $plugin_url_path = WP_PLUGIN_URL;
+    wp_enqueue_style( 'dd_progressbar' );
+    wp_enqueue_style( 'dd_roles_styles' );
+
     wp_enqueue_script('jquery');
     wp_enqueue_script('jquery-ui-core');
     wp_enqueue_script('jquery-ui-draggable');
     wp_enqueue_script('jquery-ui-droppable');
     wp_enqueue_script('jquery-ui-sortable');
-    wp_enqueue_script('dd-roles', $plugin_url_path . '/dd-roles/js/default.js', array(), 'jquery');
+
+    wp_enqueue_script( 'dd_js_roles', plugins_url( '/js/default.js', __FILE__ ) , array( 'jquery' ), '' );
+
 }
-add_action( 'admin_footer', 'dd_Roles_addToAdminFooter' );
+add_action( 'admin_init', 'dd_add_style_and_js_dd_roles' );
