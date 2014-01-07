@@ -1,6 +1,6 @@
 === DD Roles ===
 Contributors: Mosterd3d
-Donate link: 
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5V2C94HQAN63C&lc=US&item_name=Dijkstra%20Design&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 Tags: Roles, Capabilities, Migrate, Users, Clean up, Custom
 Requires at least: 3.3
 Tested up to: 3.8
