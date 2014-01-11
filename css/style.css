@@ -30,6 +30,10 @@
 .otherCaps h4{
     margin-top: 0;
 }
+.defaultCaps ul,
+.otherCaps ul{
+    float: none;
+}
 
 .capLabel.disabled{
     cursor: default;
