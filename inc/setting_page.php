@@ -10,7 +10,7 @@ add_action('admin_menu', 'DD_rolesSettings');
 
 function DD_rolesSettings() {
 
-    add_options_page('DD Roles', 'DD Roles', 'manage_options', 'dd-roles.php', 'rolesSettingsPage');
+    add_users_page('DD Roles', 'DD Roles', 'manage_options', 'dd-roles.php', 'rolesSettingsPage');
     add_action( 'admin_init', 'register_dd_roles_settings' );
 }
 
@@ -23,13 +23,9 @@ function rolesSettingsPage(){
         <p><span class="spinner"></span> <strong>Connection lost.</strong> Saving has been disabled until you’re reconnected.	<span class="hide-if-no-sessionstorage">We’re backing up this post in your browser, just in case.</span>
         </p>
     </div>
-
     <div id="setting-error" class="error duplicated settings-error hidden">
         <p><strong>Duplicated, Empty or too Fancy!</strong> The role name is already excisting, empty or contains strange characters.</p>
     </div>
-
-
-
     <div id="poststuff">
     <div id="post-body" class="metabox-holder columns-2">
     <!-- /post-body-content -->
@@ -79,18 +75,12 @@ function rolesSettingsPage(){
                 <div class="inside">
                     <div class="submitmigrate" id="submitmigrate">
                         <form method="post" action="options.php">
-
-
                             <div id="minor-publishing">
-
                                 <div class="misc-pub-section">
                                     <select name="fromRole" id="role" class="widefat fromRole">
-
                                         <?php
-
                                             global $wp_roles;
                                             $roles = $wp_roles->get_names();
-
 
                                                 foreach ($roles as $role_id => $role) {
 
@@ -105,35 +95,26 @@ function rolesSettingsPage(){
                                                     }
                                                 }
                                         ?>
-
                                     </select>
                                 </div>
                                 <div class="misc-pub-section migrate_to">
                                     to
                                 </div>
-
-
-
                                 <div class="misc-pub-section">
                                     <select name="toRole" id="role" class="widefat toRole">
-
                                         <?php
-
-                                        global $wp_roles;
-                                        $roles = $wp_roles->get_names();
-                                        foreach ($roles as $role_id => $role) {
-                                            if($role_id != 'administrator'){
-
-                                                echo '<option value="'.$role_id.'">'.$role.'</option>';
+                                            global $wp_roles;
+                                            $roles = $wp_roles->get_names();
+                                            foreach ($roles as $role_id => $role) {
+                                                if($role_id != 'administrator'){
+                                                    echo '<option value="'.$role_id.'">'.$role.'</option>';
+                                                }
                                             }
-                                        }
                                         ?>
                                     </select>
                                 </div>
-
                                 <div class="clear"></div>
                             </div>
-
                             <div id="major-publishing-actions">
                                 <div id="publishing-action">
                                     <span class="spinner"></span>
@@ -146,101 +127,89 @@ function rolesSettingsPage(){
                     </div>
                 </div>
             </div>
-
         <?php
-
-
         }
 
         $CustomCapTrue = customCapBoolean();
 
         if($CustomCapTrue){
-        ?>
+            ?>
+            <div id="cleanUpdiv" class="postbox ">
+                    <div class="handlediv" title="Click to toggle"><br></div>
+                    <h3 class="hndle"><span>Clean Up</span></h3>
+                    <div class="inside">
+                        <div class="cleanupCap" id="cleanupCap">
+                            <form method="post" action="options.php">
+                                <div id="minor-publishing">
+                                    <div class="misc-pub-section">
+                                        <p>
+                                            Through DD-roles you maybe notice that a lot of plugins
+                                            leave their marks when they are inactive or deleted. By using this function you can cleanup the superfluous capabilities, <br><br>but be sure!
+                                        </p>
+                                        <select name="deleteCap" id="role" class="widefat deleteCap">
+                                            <?php
 
+                                                $default_caps = get_default_caps();
+                                                $all_caps =  $rol_capabilities = get_caps_names('administrator');
 
-        <div id="cleanUpdiv" class="postbox ">
-                <div class="handlediv" title="Click to toggle"><br></div><h3 class="hndle"><span>Clean Up</span></h3>
-                <div class="inside">
-                    <div class="cleanupCap" id="cleanupCap">
-                        <form method="post" action="options.php">
+                                                foreach( $all_caps as $capability ) {
 
+                                                    $capabilityDisplay = str_replace('_',' ',$capability);
+                                                    $capabilityDisplay = ucfirst($capabilityDisplay);
 
-                            <div id="minor-publishing">
-                                <div class="misc-pub-section">
-                                    <p>
-                                        Through DD-roles you maybe notice that a lot of plugins
-                                        leave their marks when they are inactive or deleted. By using this function you can cleanup the superfluous capabilities, <br><br>but be sure!
-                                    </p>
-
-                                    <select name="deleteCap" id="role" class="widefat deleteCap">
-
-                                    <?php
-
-                                    $default_caps = get_default_caps();
-                                    $all_caps =  $rol_capabilities = get_caps_names('administrator');
-                                    $rol_capabilities = get_caps_names('administrator');
-
-
-                                    foreach( $all_caps as $capability ) {
-                                        $capabilityDisplay = str_replace('_',' ',$capability);
-                                        $capabilityDisplay = ucfirst($capabilityDisplay);
-
-//                                        in_array($capability,$rol_capabilities) ?  $selected = 'checked' : $selected = '';
-
-                                        if(!in_array($capability ,$default_caps)){
-
-                                            echo '<option value="'.$capability.'">'.$capabilityDisplay.'</option>';
-
-                                        }
-
-                                    }
-                                    ?>
-                                    </select>
-
+                                                    if(!in_array($capability ,$default_caps)){
+                                                        echo '<option value="'.$capability.'">'.$capabilityDisplay.'</option>';
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
-
-                                <div class="clear"></div>
-                            </div>
-
-                            <div id="major-publishing-actions">
-                                <div id="publishing-action">
-                                    <span class="spinner"></span>
-                                    <button type="button" class="js-cleanUp button button-primary">Delete Cap</button>
-                                    <button type="submit" style="display: none" class="js-cleanUp-submit button button-primary">Delete Cap</button>
+                                <div id="major-publishing-actions">
+                                    <div id="publishing-action">
+                                        <span class="spinner"></span>
+                                        <button type="button" class="js-cleanUp button button-primary">Delete Cap</button>
+                                        <button type="submit" style="display: none" class="js-cleanUp-submit button button-primary">Delete Cap</button>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
-                                <div class="clear"></div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
             </div>
-
     <?php
         }
     ?>
-
-
 
     </div>
     </div>
     <div id="postbox-container-2" class="postbox-container">
         <div id="normal-sortables" class="meta-box-sortables ui-sortable">
-
                 <table class="wp-list-table widefat fixed posts" cellspacing="0">
                     <thead>
-                    <tr>
-                        <th scope="col" id="title" class="manage-column column-title sortable desc" style=""><a href="options-general.php?page=dd-roles.php&amp;orderby=title&amp;order=asc"><span>Role</span><span class="sorting-indicator"></span></a></th><th scope="col" id="author" class="manage-column column-author" style="">Users</th><th scope="col" id="date" class="manage-column column-date sortable asc" style=""><a href="http://loc.blank.nl/wp-admin/edit.php?post_type=ws_drinks&amp;orderby=date&amp;order=desc"><span>Capabilities</span><span class="sorting-indicator"></span></a></th>	</tr>
+                        <tr>
+                            <th scope="col" id="title" class="manage-column column-title" style="">
+                                    <span>Role</span>
+                            </th>
+                            <th scope="col" id="author" class="manage-column column-author" style="">Users</th>
+                            <th scope="col" id="date" class="manage-column column-date sortable asc" style="">Capabilities</th>
+                        </tr>
                     </thead>
-
                     <tfoot>
-                    <tr>
-                        <th scope="col" class="manage-column column-title sortable desc" style=""><a href="options-general.php?page=dd-roles.php&amp;orderby=title&amp;order=asc"><span>Role</span><span class="sorting-indicator"></span></a></th><th scope="col" class="manage-column column-author" style="">Users</th><th scope="col" class="manage-column column-date sortable asc" style=""><a href="http://loc.blank.nl/wp-admin/edit.php?post_type=ws_drinks&amp;orderby=date&amp;order=desc"><span>Capabilities</span><span class="sorting-indicator"></span></a></th>	</tr>
+                        <tr>
+                            <th scope="col" class="manage-column column-title" style="">
+                                    <span>Role</span>
+                            </th>
+                            <th scope="col" class="manage-column column-author" style="">Users</th>
+                            <th scope="col" class="manage-column column-date sortable asc" style="">
+                                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5V2C94HQAN63C&lc=US&item_name=Dijkstra%20Design&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" target="_blank" title="Donate the developer">
+                                    <span>Buy me a Beer!</span>
+                                </a>
+                            </th>
+                        </tr>
                     </tfoot>
-
                     <tbody id="the-list">
-
-
-
                     <?php
 
                     global $wp_roles;
@@ -249,20 +218,11 @@ function rolesSettingsPage(){
                     foreach ($roles as $role_id => $role) {
 
                         $rowZebra = (($rolcount++)%2) ? 'even' : 'odd alternate';
-
-
                         $displayName = $role;
                         $wp_default_roles = array('administrator','editor','author','contributor','subscriber');
-
-                        if (!in_array($role_id, $wp_default_roles)) {
-                            $is_default = false;
-                        }
-                        else{
-                            $is_default = true;
-                        }
+                        $is_default = in_array($role_id, $wp_default_roles) ? true : false;
 
                         ?>
-
 
                         <tr id="role-<?php echo $role_id ?>" class="role-<?php echo $role_id.' '.$rowZebra;  if($is_default){echo ' defaultRole';}?> roleRow" valign="top">
 
@@ -283,9 +243,6 @@ function rolesSettingsPage(){
                                 else{
                                     $CustomCapTrue = customCapBoolean();
 
-                                    if($CustomCapTrue){
-                                    }
-
                                     if($role_id == 'administrator'){
                                         $text = 'View';
                                         $class = 'viewRole';
@@ -294,9 +251,10 @@ function rolesSettingsPage(){
                                         $text = $CustomCapTrue ? 'Edit' : 'View';
                                         $class = $CustomCapTrue ? 'editRole' : 'viewRole';
                                     }
-                                    echo '<div class="">
-                                    <span class="edit"><a class="'.$class.'" href="#" title="Edit this item">'.$text.'</a> | </span><span class="">Default Wordpress Role</span>
-                                    </div>';
+                                    echo '
+                                        <div class="">
+                                            <span class="edit"><a class="'.$class.'" href="#" title="Edit this item">'.$text.'</a> | </span><span class="">Default Wordpress Role</span>
+                                        </div>';
                                 }
 
                                 ?>
@@ -304,117 +262,73 @@ function rolesSettingsPage(){
                                 <div class="capabilitiesBlock hidden">
                                     <div class="defaultCaps">
                                         <h4>Default WP capabilities</h4>
-
-
                                         <ul class="clearfix">
+                                            <?php
+                                                $default_caps = get_default_caps();
+                                                $rol_capabilities = get_caps_names($role_id);
 
-                                        <?php
-                                        $default_caps = get_default_caps();
-                                        $rol_capabilities = get_caps_names($role_id);
+                                                foreach( $default_caps as $capability ) {
 
+                                                    $capabilityDisplay = str_replace('_',' ',$capability);
+                                                    $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                    $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                    $disabled = $is_default ? 'disabled' :'active';
 
-
-
-                                        foreach( $default_caps as $capability ) {
-
-                                            $capabilityDisplay = str_replace('_',' ',$capability);
-                                            $capabilityDisplay = ucfirst($capabilityDisplay);
-
-                                            in_array($capability ,$rol_capabilities) ?  $selected = 'checked' : $selected = '';
-
-                                            if($is_default){
-
-                                                $disabled = "disabled";
-                                            }
-                                            else{
-                                                $disabled = "active";
-                                            }
-
-                                            echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
-                                        }
-
-                                        ?>
-
+                                                    echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                                }
+                                            ?>
                                         </ul>
-
-
                                     </div>
 
                                     <?php
                                     $CustomCapTrue = customCapBoolean();
+                                    if($CustomCapTrue){
 
-                                     if($CustomCapTrue){
                                     ?>
-                                    <div class="otherCaps">
-                                    <h4>Other WP capabilities</h4>
-                                        <ul class="clearfix">
+                                        <div class="otherCaps">
+                                            <h4>Other WP capabilities</h4>
+                                                <ul class="clearfix">
+                                                    <?php
+                                                        $default_caps = $default_caps;
+                                                        $all_caps =  $rol_capabilities = get_caps_names('administrator');
+                                                        $rol_capabilities = get_caps_names($role_id);
 
-                                    <?php
+                                                        foreach( $all_caps as $capability ) {
+                                                            $capabilityDisplay = str_replace('_',' ',$capability);
+                                                            $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                            $selected = in_array($capability,$rol_capabilities) ? 'checked' : '';
+                                                            $disabled = $role_id === "administrator" ? 'disabled' : 'active';
 
-                                    $default_caps = $default_caps;
-                                    $all_caps =  $rol_capabilities = get_caps_names('administrator');
-                                    $rol_capabilities = get_caps_names($role_id);
-
-                                    foreach( $all_caps as $capability ) {
-                                        $capabilityDisplay = str_replace('_',' ',$capability);
-                                        $capabilityDisplay = ucfirst($capabilityDisplay);
-
-                                        in_array($capability,$rol_capabilities) ?  $selected = 'checked' : $selected = '';
-
-                                        if($role_id === "administrator"){
-
-                                            $disabled = "disabled";
-                                        }
-                                        else{
-                                            $disabled = "active";
-                                        }
-
-                                        if(!in_array($capability ,$default_caps)){
-
-                                            echo '<li><label class="capLabel '.$disabled.'"><input '.$disabled.' type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
-
-
-                                        }
-
-                                    }
-                                     ?>
+                                                            if(!in_array($capability ,$default_caps)){
+                                                                echo '<li><label class="capLabel '.$disabled.'"><input '.$disabled.' type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                                            }
+                                                        }
+                                                     ?>
                                             </ul>
                                         </div>
-
-                                         <?php
+                                     <?php
                                      }
-                                         ?>
+                                     ?>
                                 </div>
                             </td>
                             <td class="author column-user">
-
                                 <?php
+                                    $totalUsers = get_totalUsers($role_id);
 
-                                $totalUsers = get_totalUsers($role_id);
-
-                                if(!$totalUsers){
-                                    $totalUsers = 'No Users';
-
-                                    echo '<p>'.$totalUsers.'</p>';
-                                }
-                                else{
-
-
-                                    $totalUsers = $totalUsers == 1 ? $totalUsers.' user' : $totalUsers.' users';
-
-                                    echo '<a href="users.php?role='.$role.'">'.$totalUsers.'</a>';
-                                }
-
-
+                                    if(!$totalUsers){
+                                        $totalUsers = 'No Users';
+                                        echo '<p>'.$totalUsers.'</p>';
+                                    }
+                                    else{
+                                        $totalUsers = $totalUsers == 1 ? $totalUsers.' user' : $totalUsers.' users';
+                                        echo '<a href="users.php?role='.$role.'">'.$totalUsers.'</a>';
+                                    }
                                 ?>
-
-
                             </td>
                             <td class="date column-capabilities">
                                 <?php
                                     $count =  get_cap_count($role_id);
                                     $countTotal =  get_cap_count('administrator');
-
                                     $count = ($count) ? $count : 0;
                                     $percent = $count*(100/$countTotal);
                                     $percent = round($percent);
@@ -430,9 +344,6 @@ function rolesSettingsPage(){
                         </tr>
 
                     <?php }//end foreach ?>
-
-
-
                     </tbody>
                 </table>
         </div>
@@ -440,43 +351,12 @@ function rolesSettingsPage(){
     <br class="clear">
     </div>
 
-
-
-<!--    ///////////////////////////////////////////////-->
-<!---->
-<!--        --><?php
-//        $result = count_users();
-//
-//
-//        echo '<p>There are ', $result['total_users'], ' total users';
-//        foreach($result['avail_roles'] as $role => $count)
-//            echo ', ', $count, ' are ', $role, 's';
-//        echo '.</p>';
-//
-//        ?>
-
-
-
-
-
-
-
-
-
 <?php
 }
 
-
-
-
-
 function register_dd_roles_settings() {
-    //register our settings
-
-    //register_setting( 'dd_roles_settings', 'dd-new-role' ); not needed anymore
     register_setting( 'dd_roles_settings', 'dd_roles' );
 }
-
 
 function get_totalUsers($role_id){
     $result = count_users();
@@ -493,36 +373,21 @@ function get_totalUsers($role_id){
 }
 
 function get_cap_count($role){
-
-
-$role = get_role($role);
-$rol_capabilities = array_keys( $role->capabilities );
-
-$countCap = '';
-
- foreach( $rol_capabilities as $capability ) {
-     //echo $capability.'<br>';
-     $countCap++;
- }
-
-return $countCap;
-
+    $role = get_role($role);
+    $rol_capabilities = array_keys( $role->capabilities );
+    $countCap = count($rol_capabilities);
+    return $countCap;
 }
 
 function get_caps_names($role_id){
 
     $role_id = get_role($role_id);
     $rol_capabilities = array_keys( $role_id->capabilities );
-
-    $countCap = '';
     $caps = array();
-
     foreach( $rol_capabilities as $capability ) {
         $caps[] = $capability;
     }
-
     return $caps;
-
 }
 
 function get_default_caps(){
@@ -543,7 +408,6 @@ function customCapBoolean(){
     }
 }
 
-
 function onlyAdminRoles(){
 
     global $wp_roles;
@@ -553,11 +417,9 @@ function onlyAdminRoles(){
     foreach ($roles as $role_id => $role) {
         if($role_id != 'administrator'){
             $totalUsers = get_totalUsers($role_id);
-            // echo $totalUsers;
             if($totalUsers){
                 $onlyAdmin = false;
             }
-
         }
     }
     return $onlyAdmin;
