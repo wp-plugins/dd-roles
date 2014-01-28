@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5V2C9
 Tags: Roles, Capabilities, Migrate, Users, Clean up, Custom
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 1.3
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,13 +12,13 @@ Just another DD plugin. Manage your roles and capabilities easy.
 
 == Description ==
 
-DD-Roles is an extra settings-page to manage your roles but keeps the default roles and capabilities intact. You can add new roles and update their capabilities. You can migrate users and delete unnecessary capabilities.
+DD-Roles is an extra User settings-page to manage your roles but keeps the default roles and capabilities intact. You can add new roles and update their capabilities. You can migrate users and delete unnecessary capabilities.
 
 == Installation ==
 
 1. Upload the `dd-roles` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Activate and manage your roles through settings > DD Roles.
+3. Activate and manage your roles through Users > DD Roles.
 
 == Frequently asked questions ==
 
@@ -30,6 +30,10 @@ Do you have ideas, questions or issues with DD-roles? Please leave a message in 
 2. screenshot-2.png
 
 == Changelog ==
+= 1.3 =
+* Bugfix: inline-block on list
+
+= 1.3.1 =
 
 = 1.3 =
 * Moved to Users
