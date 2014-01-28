@@ -33,6 +33,7 @@
 .defaultCaps ul,
 .otherCaps ul{
     float: none;
+    display: inline-block;
 }
 
 .capLabel.disabled{
