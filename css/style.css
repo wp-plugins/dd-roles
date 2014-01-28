@@ -34,6 +34,7 @@
 .otherCaps ul{
     float: none;
     display: inline-block;
+    width: 100%;
 }
 
 .capLabel.disabled{
