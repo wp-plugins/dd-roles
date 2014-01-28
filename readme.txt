@@ -30,10 +30,9 @@ Do you have ideas, questions or issues with DD-roles? Please leave a message in 
 2. screenshot-2.png
 
 == Changelog ==
-= 1.3 =
-* Bugfix: inline-block on list
 
 = 1.3.1 =
+* Bugfix: inline-block on list
 
 = 1.3 =
 * Moved to Users
