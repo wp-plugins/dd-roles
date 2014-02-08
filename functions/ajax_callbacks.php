@@ -14,9 +14,6 @@ add_action( 'wp_ajax_cleanUp', 'cleanUp_callback' );
 add_action( 'wp_ajax_changeCapState', 'changeCapState_callback' );
 
 
-
-
-
 function verify_and_add_callback() {
     global $wp_roles;
     $unique = true;

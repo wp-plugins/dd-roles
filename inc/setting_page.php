@@ -203,7 +203,7 @@ function rolesSettingsPage(){
                             </th>
                             <th scope="col" class="manage-column column-author" style="">Users</th>
                             <th scope="col" class="manage-column column-date sortable asc" style="">
-                                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5V2C94HQAN63C&lc=US&item_name=Dijkstra%20Design&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" target="_blank" title="Donate the developer">
+                                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5V2C94HQAN63C&lc=US&item_name=Dijkstra%20Design&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" target="_blank" class="beer" title="Donate the developer">
                                     <span>Buy me a Beer!</span>
                                 </a>
                             </th>
@@ -260,22 +260,300 @@ function rolesSettingsPage(){
                                 ?>
 
                                 <div class="capabilitiesBlock hidden">
+                                    <?php
+
+                                    $read= array();
+                                    $levels= array();
+                                    $pages = array();
+                                    $comments = array();
+                                    $posts = array();
+                                    $media = array();
+                                    $users = array();
+                                    $themes = array();
+                                    $plugins = array();
+                                    $tools = array();
+                                    $settings = array();
+                                    $others = array();
+
+                                    foreach( $default_caps as $capability ) {
+
+                                        $capabilityDisplay = str_replace('_',' ',$capability);
+
+                                        if ($capability == 'read' || strpos($capability,'edit_dashboard') !== false ) {
+
+                                            $read[] = $capability;
+                                        }
+                                        if (strpos($capability,'level') !== false) {
+
+                                            $levels[] = $capability;
+                                        }
+                                        if (strpos($capability,'pages') !== false) {
+
+                                            $pages[] = $capability;
+                                        }
+                                        if (strpos($capability,'comments') !== false) {
+
+                                            $comments[] = $capability;
+                                        }
+                                        if (strpos($capability,'posts') !== false || strpos($capability,'manage_categories') !== false ) {
+
+                                            $posts[] = $capability;
+                                        }
+                                        if (strpos($capability,'users') !== false) {
+
+                                            $users[] = $capability;
+                                        }
+                                        if (strpos($capability,'theme') !== false) {
+
+                                            $themes[] = $capability;
+                                        }
+                                        if (strpos($capability,'plugins') !== false) {
+
+                                            $plugins[] = $capability;
+                                        }
+                                        if (strpos($capability,'port') !== false) {
+
+                                            $tools[] = $capability;
+                                        }
+                                        if (strpos($capability,'files') !== false) {
+
+                                            $media[] = $capability;
+                                        }
+                                        if (strpos($capability,'manage_options') !== false) {
+
+                                            $settings[] = $capability;
+                                        }
+                                        if (strpos($capability,'unfiltered') !== false || strpos($capability,'links') !== false || strpos($capability,'core') !== false) {
+
+                                            $others[] = $capability;
+                                        }
+
+                                    }
+
+                                    $media = array_reverse($media);
+                                    $levels = array_reverse($levels);
+                                    $rol_capabilities = get_caps_names($role_id);
+
+                                    ?>
                                     <div class="defaultCaps">
-                                        <h4>Default WP capabilities</h4>
-                                        <ul class="clearfix">
+                                        <h4>Dashboard & Profile</h4>
+                                        <p class="howto">Allows access to Administration Panel options "Dashboard" and "Profile"<br>
+                                            Allows access to the configuration parameters of widgets which included to the dashboard.</p>
+
+                                        <ul class="read_cap clearfix">
                                             <?php
-                                                $default_caps = get_default_caps();
-                                                $rol_capabilities = get_caps_names($role_id);
+                                            foreach( $read as $capability ) {
 
-                                                foreach( $default_caps as $capability ) {
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
 
-                                                    $capabilityDisplay = str_replace('_',' ',$capability);
-                                                    $capabilityDisplay = ucfirst($capabilityDisplay);
-                                                    $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
-                                                    $disabled = $is_default ? 'disabled' :'active';
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
+                                            ?>
 
-                                                    echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
-                                                }
+                                        </ul>
+                                    </div>
+                                    <div class="defaultCaps">
+                                        <h4>Posts</h4>
+                                        <p class="howto">Allows access to Administration Panel options "Posts"</p>
+
+                                        <ul class="posts_cap clearfix">
+                                            <?php
+                                            foreach( $posts as $capability ) {
+
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
+
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
+                                            ?>
+
+                                        </ul>
+                                    </div>
+                                    <div class="defaultCaps">
+                                        <h4>Media</h4>
+                                        <p class="howto">Allows access to Administration Panel options "Media"</p>
+
+                                        <ul class="posts_cap clearfix">
+                                            <?php
+                                            foreach( $media as $capability ) {
+
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
+
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
+                                            ?>
+
+                                        </ul>
+                                    </div>
+                                    <div class="defaultCaps">
+                                        <h4>Pages</h4>
+                                        <p class="howto">Allows access to Administration Panel options "Pages"</p>
+
+                                        <ul class="pages_cap clearfix">
+                                            <?php
+                                            foreach( $pages as $capability ) {
+
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
+
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
+                                            ?>
+
+                                        </ul>
+                                    </div>
+                                    <div class="defaultCaps">
+                                        <h4>Comments</h4>
+                                        <p class="howto">Allows access to Administration Panel options "Comments" ("Edit posts" needs to be checked in Posts). <br>To edit comments "Edit others posts" and "Edit published posts" need to be checked in Posts. </p>
+
+                                        <ul class="pages_cap clearfix">
+                                            <?php
+                                            foreach( $comments as $capability ) {
+
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
+
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
+                                            ?>
+
+                                        </ul>
+                                    </div>
+                                    <div class="defaultCaps">
+                                        <h4>Appearance</h4>
+                                        <p class="howto">Allows access to Administration Panel options "Appearance"</p>
+                                        <ul class="themes_cap clearfix">
+                                            <?php
+                                            foreach( $themes as $capability ) {
+
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
+
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
+                                            ?>
+
+                                        </ul>
+                                    </div>
+                                    <div class="defaultCaps">
+                                        <h4>Plugins</h4>
+                                        <p class="howto">Allows access to Administration Panel options "Plugins"</p>
+                                        <ul class="plugins_cap clearfix">
+                                            <?php
+                                            foreach( $plugins as $capability ) {
+
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
+
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
+                                            ?>
+
+                                        </ul>
+                                    </div>
+                                    <div class="defaultCaps">
+                                        <h4>Users</h4>
+                                        <p class="howto">Allows access to Administration Panel options "Users"</p>
+                                        <ul class="users_cap clearfix">
+                                            <?php
+                                            foreach( $users as $capability ) {
+
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
+
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
+                                            ?>
+
+                                        </ul>
+                                    </div>
+                                    <div class="defaultCaps">
+                                        <h4>Tools</h4>
+                                        <p class="howto">Allows access to Administration Panel options "Tools"</p>
+                                        <ul class="plugins_cap clearfix">
+                                            <?php
+                                            foreach( $tools as $capability ) {
+
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
+
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
+                                            ?>
+
+                                        </ul>
+                                    </div>
+                                    <div class="defaultCaps">
+                                        <h4>Settings</h4>
+                                        <p class="howto">Allows access to Administration Panel options "Settings"</p>
+                                        <ul class="plugins_cap clearfix">
+                                            <?php
+                                            foreach( $settings as $capability ) {
+
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
+
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
+                                            ?>
+
+                                        </ul>
+                                    </div>
+                                    <div class="defaultCaps">
+                                        <h4>Others</h4>
+                                        <p class="howto">Allows access to Administration Panel options "Links", allows user to post HTML markup or even JavaScript code in pages, posts, comments and widgets and allow to update the core.</p>
+                                        <ul class="plugins_cap clearfix">
+                                            <?php
+                                            foreach( $others as $capability ) {
+
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
+
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
+                                            ?>
+
+                                        </ul>
+                                    </div>
+                                    <div class="defaultCaps">
+                                        <h4>Levels</h4>
+                                        <p class="howto">To maintain backwards compatibility with plugins that still use the user levels system (although this is very much discouraged), the default Roles in WordPress also include Capabilities that correspond to these levels. User Levels were finally deprecated in version 3.0.</p>
+                                        <ul class="levels_cap clearfix">
+
+                                            <?php
+                                            foreach( $levels as $capability ) {
+
+                                                $capabilityDisplay = str_replace('_',' ',$capability);
+                                                $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                $selected = in_array($capability ,$rol_capabilities) ? 'checked' : '';
+                                                $disabled = $is_default ? 'disabled' :'active';
+
+                                                echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            }
                                             ?>
                                         </ul>
                                     </div>
@@ -286,25 +564,82 @@ function rolesSettingsPage(){
 
                                     ?>
                                         <div class="otherCaps">
-                                            <h4>Other WP capabilities</h4>
-                                                <ul class="clearfix">
-                                                    <?php
-                                                        $default_caps = $default_caps;
-                                                        $all_caps =  $rol_capabilities = get_caps_names('administrator');
-                                                        $rol_capabilities = get_caps_names($role_id);
+                                            <?php
 
-                                                        foreach( $all_caps as $capability ) {
-                                                            $capabilityDisplay = str_replace('_',' ',$capability);
-                                                            $capabilityDisplay = ucfirst($capabilityDisplay);
-                                                            $selected = in_array($capability,$rol_capabilities) ? 'checked' : '';
-                                                            $disabled = $role_id === "administrator" ? 'disabled' : 'active';
+                                            $capsGroups = array();
 
-                                                            if(!in_array($capability ,$default_caps)){
-                                                                echo '<li><label class="capLabel '.$disabled.'"><input '.$disabled.' type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                            $default_caps = $default_caps;
+                                            $all_caps =  $rol_capabilities = get_caps_names('administrator');
+                                            $rol_capabilities = get_caps_names($role_id);
+
+                                            foreach( $all_caps as $capability ) {
+                                                if(!in_array($capability ,$default_caps)){
+
+                                                    $groupName = $capability;
+
+                                                    $groupName = str_replace('others_', '', $groupName);
+                                                    $groupName = str_replace('edit_', '', $groupName);
+                                                    $groupName = str_replace('manage_', '', $groupName);
+                                                    $groupName = str_replace('private_', '', $groupName);
+                                                    $groupName = str_replace('read_', '', $groupName);
+                                                    $groupName = str_replace('delete_', '', $groupName);
+                                                    $groupName = str_replace('delete_', '', $groupName);
+                                                    $groupName = str_replace('published_', '', $groupName);
+                                                    $groupName = str_replace('publish_', '', $groupName);
+                                                    $groupName = str_replace('view_', '', $groupName);
+                                                    $groupName = str_replace('export_', '', $groupName);
+
+                                                    if(!in_array($groupName ,$capsGroups) ){
+
+                                                        $capsGroupsOld = $capsGroups;
+                                                        $capsGroups[] = $groupName;
+
+                                                        foreach( $capsGroups as $key => $capsGroup ) {
+
+                                                            $matchingCharacters = similar_text($capsGroup, $groupName, $matchingPercentage);
+
+                                                            $capsGroupLength = strlen($capsGroup);
+                                                            $groupNameLength = strlen($groupName);
+
+                                                            $set_matchingStrength = 51; //51% of the characters names are the same
+
+                                                            if($matchingPercentage > $set_matchingStrength && $capsGroupLength > $groupNameLength){
+
+                                                                unset($capsGroups[$key]);
+                                                            }
+                                                            if($matchingPercentage > $set_matchingStrength && $capsGroupLength < $groupNameLength){
+
+                                                                $capsGroups = $capsGroupsOld;
                                                             }
                                                         }
-                                                     ?>
-                                            </ul>
+                                                    }
+                                                }
+                                            }
+
+//                                            print_r($capsGroups);
+
+                                            echo '<h4>Other WP capabilities</h4>';
+                                            foreach( $capsGroups as $capsGroup ) {
+                                                echo '<ul class="customCap clearfix">';
+
+                                                $default_caps = $default_caps;
+                                                $all_caps =  $rol_capabilities = get_caps_names('administrator');
+                                                $rol_capabilities = get_caps_names($role_id);
+
+                                                foreach( $all_caps as $capability ) {
+                                                    $capabilityDisplay = str_replace('_',' ',$capability);
+                                                    $capabilityDisplay = ucfirst($capabilityDisplay);
+                                                    $selected = in_array($capability,$rol_capabilities) ? 'checked' : '';
+                                                    $disabled = $role_id === "administrator" ? 'disabled' : 'active';
+
+                                                    if(!in_array($capability ,$default_caps) && strpos($capability,$capsGroup) !== false){
+                                                        echo '<li><label class="capLabel '.$disabled.'"><input '.$disabled.' type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
+                                                    }
+                                                }
+
+                                                echo '</ul>';
+                                            }
+                                            ?>
                                         </div>
                                      <?php
                                      }

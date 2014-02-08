@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: DD_Roles
-Version: 1.3.1
+Version: 1.4
 Plugin URI: http://dijkstradesign.com
 Description: A plug-in to add and edit the roles and capabilities
 Author: Wouter Dijkstra
@@ -35,13 +35,11 @@ class dd_roles {
 
     static function activate_plugin()
     {
-        //require_once('functions/add_role.php');
     }
 
     static function deactivate_plugin()
     {
         //TODO reset roles before deactivate
-
     }
 }
 
@@ -50,16 +48,10 @@ class dd_roles {
  */
 function dd_add_style_and_js_dd_roles()
 {
-    wp_register_style( 'dd_progressbar', plugins_url('/css/progressBar.css', __FILE__) );
     wp_register_style( 'dd_roles_styles', plugins_url('/css/style.css', __FILE__) );
-
-    wp_enqueue_style( 'dd_progressbar' );
     wp_enqueue_style( 'dd_roles_styles' );
 
     wp_enqueue_script('jquery');
-    wp_enqueue_script('jquery-ui-core');
-    wp_enqueue_script('jquery-ui-draggable');
-    wp_enqueue_script('jquery-ui-droppable');
     wp_enqueue_script('jquery-ui-sortable');
 
     wp_enqueue_script( 'dd_js_roles', plugins_url( '/js/default.js', __FILE__ ) , array( 'jquery' ), '' );
