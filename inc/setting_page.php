@@ -274,6 +274,7 @@ function rolesSettingsPage(){
                                     $tools = array();
                                     $settings = array();
                                     $others = array();
+                                    $default_caps = get_default_caps();
 
                                     foreach( $default_caps as $capability ) {
 
