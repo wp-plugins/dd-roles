@@ -191,7 +191,7 @@ function rolesSettingsPage(){
                             This plugin is distributed for free under a GNU General Public License or a GPL compatible license. This software is free as in beer and as in freedom; however, donations help to pay for time I could have spent on billable projects. Donations allow me to spend more time developing these free projects instead of working on billable projects. Help support your favorite plugins by donating to help pay for espresso to keep me awake. (I do most of my open source work while at the end of the day.).
                         </p>
                         <p>
-                            Donations allow me to spend more time developing all aspects of this plugin and providing the free support that so many people have enjoyed. (It also keeps me motivated: it is a great feeling for someone to be willing to pay — even a few dollars — for something they can get for free.) So be kind and please consider donating. Any amount is appreciated whether it be € 3.00 (price of a Dutch Beer) or more ;).
+                            Donations allow me to spend more time developing all aspects of this plugin and providing the free support that so many people have enjoyed. (It also keeps me motivated: it is a great feeling for someone to be willing to pay — even a few Euros — for something they can get for free.) So be kind and please consider donating. Any amount is appreciated whether it be € 3.00 (price of a Dutch Beer) or more ;).
                         </p>
                         <h5>
                             Wouter Dijkstra
