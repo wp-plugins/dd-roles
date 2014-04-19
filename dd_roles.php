@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: DD_Roles
-Version: 1.4.1
+Version: 1.4.2
 Plugin URI: http://dijkstradesign.com
 Description: A plug-in to add and edit the roles and capabilities
 Author: Wouter Dijkstra
@@ -43,9 +43,6 @@ class dd_roles {
     }
 }
 
-/**
- *   Enqueue plugin style-file for backend
- */
 function dd_add_style_and_js_dd_roles()
 {
     wp_register_style( 'dd_roles_styles', plugins_url('/css/style.css', __FILE__) );
