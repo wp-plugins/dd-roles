@@ -115,7 +115,6 @@ function userMigrate($roleName,$toRole){
     $users = get_users($usersRole);
     foreach ($users as $user) {
 
-
         // Remove role
         $user->remove_role( $roleName );
 

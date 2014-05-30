@@ -3,23 +3,21 @@
  */
 jQuery(function($) {
 
-    $('.dd-new-role').keydown(function(event){
-        if(event.keyCode == 13) {
-            event.preventDefault();
+    $('.dd-new-role').keydown(function(e){
+        if(e.keyCode == 13) {
+            e.preventDefault();
             $('.js-newRole').trigger('click');
             return false;
         }
     });
 
     $('.dd-new-role').focus(function(){
-
         $('.settings-error').fadeOut('fast', function(){
             $(this).addClass('hidden').attr('style', '');
         });
     })
 
     $('.js-newRole').on('click', function(){
-
         var newRoleName = $('.dd-new-role').val();
         if(newRoleName == ''){
             showError();
@@ -34,7 +32,6 @@ jQuery(function($) {
             jQuery.post(ajaxurl, data, function(unique) {
 
                 if (unique) {
-
                     location.reload();
                     console.log (unique);
                 }
@@ -73,8 +70,6 @@ jQuery(function($) {
 
     $('.capLabel.active').change(function() {
 
-//        console.log($(this).children('input').is(':checked'));
-
         var state = $(this).children('input').is(':checked'); // true/false
         var capname = $(this).children('input').val();
         var role_id = $(this).parents('.roleRow').find('.role_id').val();
@@ -105,25 +100,19 @@ jQuery(function($) {
         });
     });
 
-    $('.editRole').on('click', function(e){
+    $('.openInfo').on('click', function(e){
+
         e.preventDefault();
-        $(this).parents('.roleRow').find('.capabilitiesBlock').toggleClass('hidden');
+        var currentName = $(this).text();
+        var newName = $(this).data("othertext");
 
-        var thisEdit = $(this).parents('.roleRow').find('.edit').children('.editRole');
-
-        thisEdit.text( (thisEdit.text() == 'Edit' ? 'Close' : 'Edit') );
-    })
-    $('.viewRole').on('click', function(e){
-        e.preventDefault();
-        $(this).parents('.roleRow').find('.capabilitiesBlock').toggleClass('hidden');
-        var thisEdit = $(this).parents('.roleRow').find('.edit').children('.viewRole');
-
-        thisEdit.text( (thisEdit.text() == 'View' ? 'Close' : 'View') );
+        $(this).toggleClass('open').text(newName).data('othertext',currentName).parents('.roleRow').find('.capabilitiesBlock').toggleClass('hidden');
     })
 
     $('.deleteRole').on('click', function(e){
         e.preventDefault();
-        var role_id = $(this).next('.role_id').val();
+        var role_id = $(this).parents('.roleRow').find('.role_id').val();
+
         var data = {
             action: 'deleteRole',
             role_id: role_id
@@ -132,9 +121,7 @@ jQuery(function($) {
             console.log(roleDeleted);
             location.reload();
         });
-
     });
-
 
     $('.js-cleanUp').on('click', function(e){
         e.preventDefault();
@@ -149,13 +136,11 @@ jQuery(function($) {
             console.log(capDeleted);
             setInterval(location.reload(),5000);
         });
-
     })
 
     $('.dd-sidebar').on('click','.handlediv', function(){
         $(this).parent().toggleClass('closed');
     });
-
 });
 
 
