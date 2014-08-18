@@ -425,8 +425,16 @@ function rolesSettingsPage(){
 
                                                 $groupName = $capability;
 
-                                                $prefixes = array("others_", "edit_", "manage_","private_", "read_", "delete_", "published_", "publish_", "view_", "export_");
-                                                $groupName = str_replace($prefixes, '', $groupName);
+
+//                                                print_r($groupName);
+//                                                echo '<br>';
+
+//                                                $prefixes = array("others_", "edit_", "manage_","private_", "read_", "delete_", "published_", "publish_", "view_", "export_");
+//                                                $groupName = str_replace($prefixes, '', $groupName);
+
+//                                                print_r($groupName);
+//                                                echo '<br>';
+//                                                echo '<br>';
 
                                                 if(!in_array($groupName ,$capsGroups) ){
 
@@ -459,7 +467,8 @@ function rolesSettingsPage(){
                                             }
                                         }
                                         echo '<h4>Other WP capabilities</h4>';
-                                        foreach( $capsGroups as $capsGroup ) {
+                                        echo '<p class="howto">This is a bunch of capabilities set by third-part plugins or themes.</p>';
+//                                        foreach( $capsGroups as $capsGroup ) {
                                             echo '<ul class="customCap clearfix">';
 
                                             $default_caps = $default_caps;
@@ -472,12 +481,13 @@ function rolesSettingsPage(){
                                                 $selected = in_array($capability,$rol_capabilities) ? 'checked' : '';
                                                 $disabled = $role_id === "administrator" ? 'disabled' : 'active';
 
-                                                if(!in_array($capability ,$default_caps) && strpos($capability,$capsGroup) !== false){
+//                                                if(!in_array($capability ,$default_caps) && strpos($capability,$capsGroup) !== false){
+                                                if(!in_array($capability ,$default_caps)){
                                                     echo '<li><label class="capLabel '.$disabled.'"><input '.$disabled.' type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
                                                 }
                                             }
                                             echo '</ul>';
-                                        }
+//                                        }
                                         ?>
                                     </div>
                                  <?php
