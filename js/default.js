@@ -93,7 +93,8 @@ jQuery(function($) {
         jQuery.post(ajaxurl, data, function(capDeleted) {
 
             thisCapLabel.removeClass('loading');
-            percent = Math.round(percent)+'%';
+            percent = Math.round(percent);
+            percent = percent > 100 ? '100%' : percent+'%'
             thisCapLabel.parents('.roleRow').find('.progress-bar').css("width", percent);
             thisCapLabel.parents('.roleRow').find('.progressCount').val(count);
             thisCapLabel.parents('.roleRow').find('.sr-only').text(percent+' Capabilities');
