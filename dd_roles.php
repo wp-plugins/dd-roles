@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: DD_Roles
-Version: 1.4.9
+Version: 1.5
 Plugin URI: http://dijkstradesign.com
 Description: A plug-in to add and edit the roles and capabilities
 Author: Wouter Dijkstra
@@ -25,6 +25,7 @@ Author URI: http://dijkstradesign.com
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+require_once('inc/functions.php');
 require_once('inc/setting_page.php');
 include_once('functions/ajax_callbacks.php');
 
@@ -35,10 +36,13 @@ class dd_roles {
 
     static function activate_plugin()
     {
+        add_new_capabilities('Show_Admin_Bar_in_Front');
     }
 
     static function deactivate_plugin()
     {
+
+        delete_capabilities('Show_Admin_Bar_in_Front');
         //TODO reset roles before deactivate
     }
 }
@@ -58,3 +62,11 @@ add_action( 'admin_init', 'dd_add_style_and_js_dd_roles' );
 
 
 load_default_textdomain();
+
+add_action('wp_head', 'dd_adminbar_front');
+
+function dd_adminbar_front(){
+    if ( ! current_user_can( 'Show_Admin_Bar_in_Front' ) ) {
+        show_admin_bar( false );
+    }
+}
