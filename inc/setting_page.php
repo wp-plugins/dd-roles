@@ -151,8 +151,6 @@ function rolesSettingsPage(){
                                     <div class="otherCaps">
                                         <?php
 
-                                        print_r(get_post_type_capabilities($args));
-
                                         // $capsGroups = make_groups();
                                         echo '<h4>Other WP capabilities</h4>';
                                         echo '<p class="howto">This is a bunch of capabilities set by third-part plugins or themes.</p>';
