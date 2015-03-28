@@ -74,7 +74,7 @@ function rolesSettingsPage(){
 
                     $rowZebra = (($rolcount++)%2) ? 'even' : 'odd alternate';
                     $displayName = translate_user_role( $role );
-                    $wp_default_roles = array('administrator','editor','author','contributor','subscriber');
+                    $wp_default_roles = array('administrator','editor','author','contributor','subscriber', 'banned');
                     $is_default = in_array($role_id, $wp_default_roles) ? true : false;
 
                     ?>
@@ -99,8 +99,11 @@ function rolesSettingsPage(){
                             $linkText = $role_id == 'administrator' | !$CustomCapTrue && $is_default ? $viewName : $editName;
                             $secondItem = !$is_default ? '<span class="trash"><a class="deleteRole" title="Delete this role: Users will be migrate to Subscribers" href="#">'.$trashName.'</a></span>' : '<span>'.__("Default").' Wordpress '.__("Role").'</span>';
 
+                            if($role_id != 'banned'){
                             ?>
                             <div><span class="edit"><a class="<?php echo $className ?> openInfo" href="#" data-OtherText="<?php echo $closeName ?>" title="<?php echo $titleName ?>"><?php echo $linkText ?></a> | </span><?php echo $secondItem ?></div>
+
+                            <?php } ?>
                             <div class="capabilitiesBlock hidden">
                                 <?php
 
@@ -131,7 +134,7 @@ function rolesSettingsPage(){
                                                 $disabled = $is_default ? 'disabled' :'active';
 
                                                 if( $capability == 'Show_Admin_Bar_in_Front'){
-                                                    $disabled = 'active';
+                                                    $disabled = $role_id == 'banned'? 'disabled': 'active';
                                                 }
 
                                                 echo ' <li><label class="capLabel '.$disabled.'"><input '.$disabled.' class="'.$disabled.'" type="checkbox" '.$selected.' id="'.$capability.'" name="'.$capability.'" value="'.$capability.'">'.$capabilityDisplay.'<span class="spinner"></span></label></li>';
@@ -203,14 +206,17 @@ function rolesSettingsPage(){
                                 $count = ($count) ? $count : 0;
                                 $percent = $count*(100/$countTotal);
                                 $percent = floor($percent);
+
+                            if($role_id != 'banned'){
                             ?>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" data-role="progressbar" data-aria-valuenow="<?php echo $percent;?>" data-aria-valuemin="0" data-aria-valuemax="100" style="width: <?php echo $percent;?>%">
-                                    <span class="sr-only"><?php echo $percent;?>% Capabilities</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" data-role="progressbar" data-aria-valuenow="<?php echo $percent;?>" data-aria-valuemin="0" data-aria-valuemax="100" style="width: <?php echo $percent;?>%">
+                                        <span class="sr-only"><?php echo $percent;?>% Capabilities</span>
+                                    </div>
+                                    <input type="hidden" class="progressCount" value="<?php echo $count; ?>">
+                                    <input type="hidden" class="progressCountTotal" value="<?php echo $countTotal ?>">
                                 </div>
-                                <input type="hidden" class="progressCount" value="<?php echo $count; ?>">
-                                <input type="hidden" class="progressCountTotal" value="<?php echo $countTotal ?>">
-                            </div>
+                                <?php } ?>
                         </td>
                     </tr>
 

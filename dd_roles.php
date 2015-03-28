@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: DD_Roles
-Version: 1.5
+Version: 2.0
 Plugin URI: http://dijkstradesign.com
 Description: A plug-in to add and edit the roles and capabilities
 Author: Wouter Dijkstra
@@ -28,6 +28,9 @@ Author URI: http://dijkstradesign.com
 require_once('inc/functions.php');
 require_once('inc/setting_page.php');
 include_once('functions/ajax_callbacks.php');
+require_once('functions/get_online_users.php');
+require_once('functions/dd_history.php');
+require_once('dashboard/dashboard.php');
 
 register_activation_hook( __FILE__, array('dd_roles', 'activate_plugin') );
 register_deactivation_hook( __FILE__, array('dd_roles', 'deactivate_plugin') );
@@ -37,13 +40,14 @@ class dd_roles {
     static function activate_plugin()
     {
         add_new_capabilities('Show_Admin_Bar_in_Front');
+        add_dd_role('Banned');
+        dd_history_install();
     }
 
     static function deactivate_plugin()
     {
-
         delete_capabilities('Show_Admin_Bar_in_Front');
-        //TODO reset roles before deactivate
+        dd_history_uninstall();
     }
 }
 

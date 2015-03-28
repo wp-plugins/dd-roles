@@ -1,3 +1,5 @@
+/* $ sass --watch style.scss:../css/style.css */
+@import 'bourbon/bourbon';
 @import "progress.scss";
 @import "fonts.scss";
 
@@ -5,6 +7,11 @@
   background-color: #ececec;
   &.alternate{
     background-color: #ddd;
+  }
+  &.role-banned{
+    .row-title{
+      color: #d54e21;
+    }
   }
 }
 
@@ -83,7 +90,7 @@
 .dd-sidebar .postbox .hndle {
   cursor: default;
 }
-
+#logged_in_users h3,
 #donate h3 {
   &:before{
     font-family: 'custom_dashicons';
@@ -91,4 +98,296 @@
     float: left;
     margin: 1px 3px 0 0;
   }
+}
+
+#logged_in_users li{
+  padding: 6px;
+  background: #fafafa;
+  color:#777;
+  @include clearfix();
+
+  &.online{
+    border-left: solid 2px #7ad03a;
+  }
+  &.offline{
+    border-left: solid 2px indianred;
+  }
+  .avatar{
+    float: left;
+    display: block;
+    margin-right: 10px;
+  }
+  p{
+    color: #222;
+    line-height: 32px;
+    margin: 0;
+
+  }
+}
+.onlineList,
+.offlineList{
+  width: 100%;
+  margin: 6px 0 12px;
+
+  tr{
+//    display: block;
+    background: #fafafa;
+    margin: 3px 0;
+    @include transition (all .2s ease-in-out);
+
+    .avatar_cell{
+
+      border-left: solid 2px #7ad03a;
+    }
+
+    &.outdated .avatar_cell{
+      opacity:0.5;
+    }
+
+    &.inactive_6 .avatar_cell{
+      border-color: gold;
+    }
+
+    &.inactive_12 .avatar_cell{
+      border-color: darkorange;
+    }
+    &.inactive_24 .avatar_cell,
+    &.userOffline .avatar_cell{
+      border-color: firebrick;
+    }
+    .avatar .avatar_cell{
+      display: block;
+//      margin-right: 10px;
+    }
+
+
+    td{
+      padding: 0 3px;
+      &.avatar_cell{
+        width:32px;
+        padding: 0;
+
+        .avatar{
+          vertical-align: middle;
+        }
+      }
+      &.name{
+//        width: 200px;
+//        flex: 2 100%;
+      }
+      &.time_spending{
+//        flex: 1 100%;
+      }
+      &.destroy{
+//        flex: 1 100%;
+        .destroy_user{
+          float: left;
+          margin: 0 3px;
+          color: #888;
+
+          &:hover,
+          &:focus,
+          &:active{
+            color:#d54e21;
+            outline: none;
+            box-shadow: none;
+          }
+          &:before{
+            content: "\f153";
+            font-family: dashicons;
+            font-size: 1.5em;
+            display: block;
+          }
+          &.spinner{
+            display: block;
+            &:before{
+              content: '';
+            }
+          }
+        }
+      }
+      &.ban{
+        .ban_user{
+          float: left;
+          margin: 0 3px;
+          color: #888;
+
+          &:hover,
+          &:focus,
+          &:active{
+            color:#d54e21;
+            outline: none;
+            box-shadow: none;
+          }
+          &::before{
+            content: "\f227";
+            font-family: dashicons;
+            font-size: 1.5em;
+            display: block;
+
+          }
+          &.spinner{
+            display: block;
+            &:before{
+              content: '';
+            }
+          }
+        }
+
+      }
+      &.spy{
+        .spy_user{
+          float: left;
+          margin: 0 3px;
+          color: #888;
+
+          &:hover,
+          &:focus,
+          &:active{
+            color:#000;
+            outline: none;
+            box-shadow: none;
+          }
+          &:before{
+            content: "\e600";
+            font-family: dd-roles;
+            font-size: 1.5em;
+            display: block;
+
+          }
+          &.spinner{
+            display: block;
+            &:before{
+              content: '';
+            }
+          }
+          &.checked{
+
+            color:#000;
+            -webkit-transition: all 1s ease-in-out;
+            -moz-transition: all 1s ease-in-out;
+            -o-transition: all 1s ease-in-out;
+            -ms-transition: all 1s ease-in-out;
+            transition: all 1s ease-in-out;
+
+            -webkit-animation-direction: normal;
+            -webkit-animation-duration: 2s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-name: blink;
+            -webkit-animation-timing-function: ease-in-out;
+
+            -moz-animation-direction: normal;
+            -moz-animation-duration: 2s;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-name: blink;
+            -moz-animation-timing-function: ease-in-out;
+          }
+        }
+      }
+    }
+
+  }
+}
+.time_spending{
+  .spinner{
+    display: block;
+    margin: 0;
+  }
+}
+.wp-core-ui .refresh_online.button-primary{
+  display: none;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity:1;
+  }
+  50% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+@-moz-keyframes blink {
+  0% {
+    opacity:1;
+  }
+  50% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+
+.userHistory{
+  width: 100%;
+
+  tr{
+//    background: #fafafa;
+
+    td{
+      padding: 3px 6px;
+
+      &.date{
+        text-align: center;
+        &.show{
+          background: #ddd;
+        }
+      }
+      &.time{
+        text-align: center;
+        background: #f7f7f7;
+      }
+      &.url{
+
+        background: #f7f7f7;
+
+        .meta_url{
+          display: block;
+          font-size: 11px;
+          color: #ccc;
+          position: relative;
+        }
+
+      }
+      &.collapse{
+        cursor: pointer;
+        &:before{
+          content: '\f140';
+          font: 400 20px/1 dashicons;
+
+        }
+        &.open:before{
+
+          content: '\f142';
+        }
+      }
+    }
+  }
+
+}
+
+.spy_user_setting{
+  margin: 0 3px;
+  &:before{
+    content: "\e600";
+    font-family: dd-roles;
+    display: inline-block;
+    margin-right: 3px;
+
+  }
+}
+#userHistory{
+  margin-top: -40px;
+  display: inline-block;
+  position: absolute;
+//  /* width: 20px; */
+//  height: 20px;
+//  background: #ccc;
+//  width: 100%;
+
+
 }

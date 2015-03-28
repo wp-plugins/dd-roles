@@ -43,6 +43,9 @@ function get_all_default_capabilities(){
         elseif (strpos($capability,'unfiltered') !== false || strpos($capability,'links') !== false || strpos($capability,'core') !== false) {
             $others[] = $capability;
         }
+	    else{
+		    $others[] = $capability; //just in case...
+	    }
     }
 
     $media = array_reverse($media);
@@ -160,7 +163,8 @@ function get_cap_count($role){
 
 function get_default_caps(){
 
-    $defaultCaps = array('switch_themes','edit_themes','activate_plugins','edit_plugins','edit_users','edit_files','manage_options','moderate_comments','manage_categories','manage_links','upload_files','import','unfiltered_html','edit_posts','edit_others_posts','edit_published_posts','publish_posts','edit_pages','read','level_10','level_9','level_8','level_7','level_6','level_5','level_4','level_3','level_2','level_1','level_0','edit_others_pages','edit_published_pages','publish_pages','delete_pages','delete_others_pages','delete_published_pages','delete_posts','delete_others_posts','delete_published_posts','delete_private_posts','edit_private_posts','read_private_posts','delete_private_pages','edit_private_pages','read_private_pages','delete_users','create_users','unfiltered_upload','edit_dashboard','update_plugins','delete_plugins','install_plugins','update_themes','install_themes','update_core','list_users','remove_users','add_users','promote_users','edit_theme_options','delete_themes','export','Show_Admin_Bar_in_Front');
+	$role =  get_role( 'administrator' );
+	$defaultCaps = array_keys($role->capabilities);
     return $defaultCaps;
 }
 
@@ -226,7 +230,7 @@ function make_groups(){
 
                     elseif(strpos($capsGroup,$groupName) !== false && strpos($groupName,$capsGroup) == ''){
 
-                        //The new one fits in the one already excisting in the array.
+                        //The new one fits in the one already existing in the array.
                         //Remove the one in the array.
                         $capsGroups = array_diff($capsGroups, array($capsGroup));
 
