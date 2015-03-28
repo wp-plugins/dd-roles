@@ -1,18 +1,22 @@
 === DD Roles ===
 Contributors: Mosterd3d
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5V2C94HQAN63C&lc=US&item_name=Dijkstra%20Design&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
-Tags: Roles, Capabilities, Migrate, Users, Clean up, Custom, restrictions, restriction, block, user, role, admin bar, bar
+Tags: Roles, Capabilities, Migrate, Users, Clean up, Custom, restrictions, restriction, block, user, role, admin bar, bar, banned, log, off, destroy, session, online, powerful, spy, history, clear
 Requires at least: 3.3
-Tested up to: 3.9.1
-Stable tag: 1.5
+Tested up to: 4.1.1
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Just another DD plugin. Manage your roles and capabilities easy.
+Just another DD plugin. Manage your roles and capabilities easy. See who's online and track the history.
 
 == Description ==
 
-DD-Roles is an extra User settings-page to manage your roles but keeps the default roles and capabilities intact. You can add new roles and update their capabilities. You can migrate users and delete unnecessary capabilities.
+DD-Roles is an extra User settings-page to manage your roles but keep the default roles and capabilities intact. You can add new roles and update their capabilities. You can migrate users and delete unnecessary capabilities.
+
+This plugin contains also the 'Online Users" dashboard widget. It shows a list of the last logged-in users with the following information: last visit page including timer, A log-off, Ban and Spy button.
+
+Every 30 seconds the widget refresh the information.
 
 == Installation ==
 
@@ -30,6 +34,12 @@ Do you have ideas, questions or issues with DD-roles? Please leave a message in 
 2. screenshot-2.png
 
 == Changelog ==
+
+= 2.0=
+* Added "Online Users" dashboard widget
+* Added banned role
+* Added Destroy session option
+* Added "spy" option
 
 = 1.5=
 * Added capability to see adminbar in front

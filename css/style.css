@@ -1,3 +1,4 @@
+/* $ sass --watch style.scss:../css/style.css */
 .progress {
   overflow: hidden;
   height: 20px;
@@ -25,7 +26,7 @@
   background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear, 45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent;
   background-size: 40px 40px; }
 
 .progress.active .progress-bar {
@@ -41,6 +42,26 @@
   src: url("../fonts/custom_dashicons.eot?#iefix7k7b29") format("embedded-opentype"), url("../fonts/custom_dashicons.woff?7k7b29") format("woff"), url("../fonts/custom_dashicons.ttf?7k7b29") format("truetype"), url("../fonts/custom_dashicons.svg?7k7b29#custom_dashicons") format("svg");
   font-weight: normal;
   font-style: normal; }
+@font-face {
+  font-family: 'dd-roles';
+  src: url("../fonts/dd-roles.eot?fbm1d7");
+  src: url("../fonts/dd-roles.eot?#iefixfbm1d7") format("embedded-opentype"), url("../fonts/dd-roles.woff?fbm1d7") format("woff"), url("../fonts/dd-roles.ttf?fbm1d7") format("truetype"), url("../fonts/dd-roles.svg?fbm1d7#dd-roles") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'dd-roles';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-spy:before {
+  content: "\e600"; }
 
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'custom_dashicons';
@@ -136,6 +157,8 @@
   background-color: #ececec; }
   .defaultRole.alternate {
     background-color: #ddd; }
+  .defaultRole.role-banned .row-title {
+    color: #d54e21; }
 
 .capabilitiesBlock input[type="checkbox"] {
   margin-right: 10px; }
@@ -197,9 +220,225 @@
 
 .dd-sidebar .postbox .hndle {
   cursor: default; }
-
+#logged_in_users h3:before,
 #donate h3:before {
   font-family: 'custom_dashicons';
   content: "\e605";
   float: left;
   margin: 1px 3px 0 0; }
+
+#logged_in_users li {
+  padding: 6px;
+  background: #fafafa;
+  color: #777;
+  *zoom: 1; }
+  #logged_in_users li:before, #logged_in_users li:after {
+    content: " ";
+    display: table; }
+  #logged_in_users li:after {
+    clear: both; }
+  #logged_in_users li.online {
+    border-left: solid 2px #7ad03a; }
+  #logged_in_users li.offline {
+    border-left: solid 2px indianred; }
+  #logged_in_users li .avatar {
+    float: left;
+    display: block;
+    margin-right: 10px; }
+  #logged_in_users li p {
+    color: #222;
+    line-height: 32px;
+    margin: 0; }
+
+.onlineList,
+.offlineList {
+  width: 100%;
+  margin: 6px 0 12px; }
+  .onlineList tr,
+  .offlineList tr {
+    background: #fafafa;
+    margin: 3px 0;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out; }
+    .onlineList tr .avatar_cell,
+    .offlineList tr .avatar_cell {
+      border-left: solid 2px #7ad03a; }
+    .onlineList tr.outdated .avatar_cell,
+    .offlineList tr.outdated .avatar_cell {
+      opacity: 0.5; }
+    .onlineList tr.inactive_6 .avatar_cell,
+    .offlineList tr.inactive_6 .avatar_cell {
+      border-color: gold; }
+    .onlineList tr.inactive_12 .avatar_cell,
+    .offlineList tr.inactive_12 .avatar_cell {
+      border-color: darkorange; }
+    .onlineList tr.inactive_24 .avatar_cell, .onlineList tr.userOffline .avatar_cell,
+    .offlineList tr.inactive_24 .avatar_cell,
+    .offlineList tr.userOffline .avatar_cell {
+      border-color: firebrick; }
+    .onlineList tr .avatar .avatar_cell,
+    .offlineList tr .avatar .avatar_cell {
+      display: block; }
+    .onlineList tr td,
+    .offlineList tr td {
+      padding: 0 3px; }
+      .onlineList tr td.avatar_cell,
+      .offlineList tr td.avatar_cell {
+        width: 32px;
+        padding: 0; }
+        .onlineList tr td.avatar_cell .avatar,
+        .offlineList tr td.avatar_cell .avatar {
+          vertical-align: middle; }
+      .onlineList tr td.destroy .destroy_user,
+      .offlineList tr td.destroy .destroy_user {
+        float: left;
+        margin: 0 3px;
+        color: #888; }
+        .onlineList tr td.destroy .destroy_user:hover, .onlineList tr td.destroy .destroy_user:focus, .onlineList tr td.destroy .destroy_user:active,
+        .offlineList tr td.destroy .destroy_user:hover,
+        .offlineList tr td.destroy .destroy_user:focus,
+        .offlineList tr td.destroy .destroy_user:active {
+          color: #d54e21;
+          outline: none;
+          box-shadow: none; }
+        .onlineList tr td.destroy .destroy_user:before,
+        .offlineList tr td.destroy .destroy_user:before {
+          content: "\f153";
+          font-family: dashicons;
+          font-size: 1.5em;
+          display: block; }
+        .onlineList tr td.destroy .destroy_user.spinner,
+        .offlineList tr td.destroy .destroy_user.spinner {
+          display: block; }
+          .onlineList tr td.destroy .destroy_user.spinner:before,
+          .offlineList tr td.destroy .destroy_user.spinner:before {
+            content: ''; }
+      .onlineList tr td.ban .ban_user,
+      .offlineList tr td.ban .ban_user {
+        float: left;
+        margin: 0 3px;
+        color: #888; }
+        .onlineList tr td.ban .ban_user:hover, .onlineList tr td.ban .ban_user:focus, .onlineList tr td.ban .ban_user:active,
+        .offlineList tr td.ban .ban_user:hover,
+        .offlineList tr td.ban .ban_user:focus,
+        .offlineList tr td.ban .ban_user:active {
+          color: #d54e21;
+          outline: none;
+          box-shadow: none; }
+        .onlineList tr td.ban .ban_user::before,
+        .offlineList tr td.ban .ban_user::before {
+          content: "\f227";
+          font-family: dashicons;
+          font-size: 1.5em;
+          display: block; }
+        .onlineList tr td.ban .ban_user.spinner,
+        .offlineList tr td.ban .ban_user.spinner {
+          display: block; }
+          .onlineList tr td.ban .ban_user.spinner:before,
+          .offlineList tr td.ban .ban_user.spinner:before {
+            content: ''; }
+      .onlineList tr td.spy .spy_user,
+      .offlineList tr td.spy .spy_user {
+        float: left;
+        margin: 0 3px;
+        color: #888; }
+        .onlineList tr td.spy .spy_user:hover, .onlineList tr td.spy .spy_user:focus, .onlineList tr td.spy .spy_user:active,
+        .offlineList tr td.spy .spy_user:hover,
+        .offlineList tr td.spy .spy_user:focus,
+        .offlineList tr td.spy .spy_user:active {
+          color: #000;
+          outline: none;
+          box-shadow: none; }
+        .onlineList tr td.spy .spy_user:before,
+        .offlineList tr td.spy .spy_user:before {
+          content: "\e600";
+          font-family: dd-roles;
+          font-size: 1.5em;
+          display: block; }
+        .onlineList tr td.spy .spy_user.spinner,
+        .offlineList tr td.spy .spy_user.spinner {
+          display: block; }
+          .onlineList tr td.spy .spy_user.spinner:before,
+          .offlineList tr td.spy .spy_user.spinner:before {
+            content: ''; }
+        .onlineList tr td.spy .spy_user.checked,
+        .offlineList tr td.spy .spy_user.checked {
+          color: #000;
+          -webkit-transition: all 1s ease-in-out;
+          -moz-transition: all 1s ease-in-out;
+          -o-transition: all 1s ease-in-out;
+          -ms-transition: all 1s ease-in-out;
+          transition: all 1s ease-in-out;
+          -webkit-animation-direction: normal;
+          -webkit-animation-duration: 2s;
+          -webkit-animation-iteration-count: infinite;
+          -webkit-animation-name: blink;
+          -webkit-animation-timing-function: ease-in-out;
+          -moz-animation-direction: normal;
+          -moz-animation-duration: 2s;
+          -moz-animation-iteration-count: infinite;
+          -moz-animation-name: blink;
+          -moz-animation-timing-function: ease-in-out; }
+
+.time_spending .spinner {
+  display: block;
+  margin: 0; }
+
+.wp-core-ui .refresh_online.button-primary {
+  display: none; }
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-moz-keyframes blink {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+.userHistory {
+  width: 100%; }
+  .userHistory tr td {
+    padding: 3px 6px; }
+    .userHistory tr td.date {
+      text-align: center; }
+      .userHistory tr td.date.show {
+        background: #ddd; }
+    .userHistory tr td.time {
+      text-align: center;
+      background: #f7f7f7; }
+    .userHistory tr td.url {
+      background: #f7f7f7; }
+      .userHistory tr td.url .meta_url {
+        display: block;
+        font-size: 11px;
+        color: #ccc;
+        position: relative; }
+    .userHistory tr td.collapse {
+      cursor: pointer; }
+      .userHistory tr td.collapse:before {
+        content: '\f140';
+        font: 400 20px/1 dashicons; }
+      .userHistory tr td.collapse.open:before {
+        content: '\f142'; }
+
+.spy_user_setting {
+  margin: 0 3px; }
+  .spy_user_setting:before {
+    content: "\e600";
+    font-family: dd-roles;
+    display: inline-block;
+    margin-right: 3px; }
+
+#userHistory {
+  margin-top: -40px;
+  display: inline-block;
+  position: absolute; }
+
+/*# sourceMappingURL=style.css.map */
