@@ -35,13 +35,13 @@ Do you have ideas, questions or issues with DD-roles? Please leave a message in 
 
 == Changelog ==
 
-= 2.0=
+= 2.0 =
 * Added "Online Users" dashboard widget
 * Added banned role
 * Added Destroy session option
 * Added "spy" option
 
-= 1.5=
+= 1.5 =
 * Added capability to see adminbar in front
 * fix typo
 
