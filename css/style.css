@@ -220,6 +220,7 @@
 
 .dd-sidebar .postbox .hndle {
   cursor: default; }
+
 #logged_in_users h3:before,
 #donate h3:before {
   font-family: 'custom_dashicons';
