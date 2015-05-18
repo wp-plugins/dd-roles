@@ -3,7 +3,7 @@ Contributors: Mosterd3d
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5V2C94HQAN63C&lc=US&item_name=Dijkstra%20Design&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 Tags: Roles, Capabilities, Migrate, Users, Clean up, Custom, restrictions, restriction, block, user, role, admin bar, bar, banned, log, off, destroy, session, online, powerful, spy, history, clear
 Requires at least: 3.3
-Tested up to: 4.2.1
+Tested up to: 4.2.2
 Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -34,6 +34,9 @@ Do you have ideas, questions or issues with DD-roles? Please leave a message in 
 2. screenshot-2.png
 
 == Changelog ==
+
+= 2.2 =
+* Fix bug custom Font
 
 = 2.1 =
 * Fix bug sourceMappingURL
